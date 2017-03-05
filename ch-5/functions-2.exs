@@ -32,5 +32,83 @@ defmodule FunctTwo do
   end
 end
 
+
 range = 10..16
 IO.inspect  Enum.map(range, &(FunctTwo.call_function_fizz_buzz(&1))) # ["Buzz", 11, "Fizz", 13, 14, "FizzBuzz", 16]
+
+
+# ==============================================================================
+fun1 = fn -> fn -> "hello" end end
+IO.puts fun1.().() # hello
+hello = fun1.()
+IO.puts hello.() # hello
+
+
+# ==============================================================================
+# Function remermber the original enviroment
+# ==============================================================================
+# Closures
+greeting = fn(name) -> fn -> "Hello #{name}" end end
+greetingTwo = &(fn -> "Hello #{&1}" end)
+andrea_greeting = greeting.("Andrea")
+IO.puts greeting.("Andrea").() # Hello Andrea
+IO.puts greetingTwo.("Andrea").() # Hello Andrea
+IO.puts andrea_greeting.() # Hello Andrea
+
+# ==============================================================================
+# With params
+# ==============================================================================
+
+sum = &(fn number -> &1 + number end)
+sumTen = sum.(10)
+IO.puts sumTen.(5) # 15
+
+
+# ==============================================================================
+# Prefix
+# ==============================================================================
+
+prefix = &(fn text -> &1 <> " " <> text end)
+prefixMrs = prefix.("Mrs")
+IO.puts prefixMrs.("Andrea") # Mrs Andrea
+IO.puts prefix.("Elixir").("Rocks") # Elixir Rocks
+
+# ==============================================================================
+# Passing functions with as arguments
+# ==============================================================================
+
+times_2 = &(&1 * 2)
+apply = fn(fun, value) -> fun.(value) end
+IO.puts apply.(times_2, 10) # 20
+
+# ==============================================================================
+# Pinned values and functoin parameters
+# ==============================================================================
+
+defmodule Greeting do
+  def for(name, greeting) do
+    fn
+      (^name) -> "#{greeting} #{name}"
+      (_) -> "I don't know"
+    end
+  end
+end
+
+mr_andrea = Greeting.for("Andrea", "yeahhh!!")
+IO.puts mr_andrea.("Andrea")  # yeahhh!! Andrea
+IO.puts mr_andrea.("---") # I don't know
+
+
+
+# ==============================================================================
+# The & notation
+# ==============================================================================
+
+# Use the & notation to rewrite the following.
+# Enum.map [1,2,3,4], fn x -> x + 2 end
+# Enum.each [1,2,3,4], fn x -> IO.inspect x end
+
+list = Enum.to_list(1..4)
+Enum.map(list, &(IO.inspect &1 + 2))
+IO.puts "*************************************"
+Enum.map(list, &(IO.inspect &1))
