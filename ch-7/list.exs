@@ -33,6 +33,16 @@ defmodule MyList do
      Enum.map(list, func) |> Enum.reduce(&(&1 + &2))
   end
 
+  # Write a max(list) that returns the element with the maximum value in the
+  # list. (This is slightly trickier than it sounds
+
+  def max(list) do
+    Enum.reduce(list, 0, fn acc, value -> _max(acc, value) end)
+  end
+
+  defp _max(acc, value) when acc <= value, do: value
+  defp _max(acc, value) when acc > value, do: acc
+
   defp _sum([], total), do: total
   defp _sum([ head | tail ], total), do: _sum(tail, total + head)
 end
