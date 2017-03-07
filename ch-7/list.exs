@@ -24,6 +24,15 @@ defmodule MyList do
     reduce(tail, func.(value, head), func)
   end
 
+  # Write  a  mapsum  function  that  takes  a  list  and  a  function.  It  applies  the
+  # function to each element of the list and then sums the result, so
+  # iex> MyList.mapsum [1, 2, 3], &(&1 * &1)
+  # 14
+
+  def mapsum(list, func) do
+     Enum.map(list, func) |> Enum.reduce(&(&1 + &2))
+  end
+
   defp _sum([], total), do: total
   defp _sum([ head | tail ], total), do: _sum(tail, total + head)
 end
