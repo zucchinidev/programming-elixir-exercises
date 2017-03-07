@@ -7,4 +7,7 @@ defmodule MyList do
 
   def plus_one([]), do: []
   def plus_one([ head | tail ]), do: [ head + 1 | plus_one(tail) ]
+
+  def map([], _func), do: []
+  def map([ head | tail ], func), do: [func.(head) | map(tail, func)]
 end
