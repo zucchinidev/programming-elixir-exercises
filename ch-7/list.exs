@@ -54,6 +54,11 @@ defmodule MyList do
     [ cypher(head, n) | caesar(tail, n) ]
   end
 
+  # MyList.swap [1, 2, 3, 4] --> [2, 1, 4, 3]
+  def swap([]), do: []
+  def swap([a, b | tail]), do: [ b, a | swap(tail) ]
+  def swap([_]), do: raise "Can't swap a list with and odd number of elements"
+
   defp cypher(chr, n) do
     97 + rem(chr + n - 97, 26)
   end
