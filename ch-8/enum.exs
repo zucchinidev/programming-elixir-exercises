@@ -40,4 +40,9 @@ defmodule EnumFake do
       []
     end
   end
+
+  def flatten([]), do: []
+  def flatten([ head | tail ]) do
+    flatten(head) ++ flatten(tail)
+  end
 end
