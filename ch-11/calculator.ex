@@ -26,6 +26,7 @@ defmodule Calculator do
   end
 end
 
+Calculator.calculate('123 + 100') # 223
 
 
 
