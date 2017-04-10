@@ -23,7 +23,10 @@ defmodule Tax do
   end
 
   defp create_keywordlist([ id, ship_to, net_amount ]) do
-    [ id: id, ship_to: String.to_atom(ship_to), net_amount: String.to_float(net_amount) ]
+    id = String.to_integer(id)
+    ship_to = String.to_atom(ship_to)
+    net_amount = String.to_float(net_amount)
+    [ id: id, ship_to: ship_to, net_amount: net_amount ]
   end
 
   defp sales_tax(orders) do
