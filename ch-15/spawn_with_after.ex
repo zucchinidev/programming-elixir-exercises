@@ -7,7 +7,7 @@ defmodule SpawnWithAfter do
 end
 
 defmodule SpawnClient do
-  def send do[]
+  def send do
     pid = spawn(SpawnWithAfter, :greet, [])
     send pid, { self, "world!!"}
     receive do
