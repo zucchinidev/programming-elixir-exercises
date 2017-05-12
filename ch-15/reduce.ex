@@ -30,6 +30,12 @@ defmodule Reduce do
       FunctionClauseError -> false
     end
   end
+
+  def poll_reduce(votes), do: votes |> Enum.reduce(%{}, &reducer_poll/2)
+
+  defp reducer_poll(value, acc) do
+    Map.update(acc, value, 1, & (&1 + 1))
+  end
 end
 # person = %{"name" => "andrea", "child" =>  %{ "name" => "Libertad"}}
 # Reduce.nested_map_inspection(person, "name.person.odeoe")
@@ -38,6 +44,11 @@ end
 # "Libertad"
 # Reduce.nested_map_inspection(person, "child")
 # %{"name" => "Libertad"}
+
+
+# Reduce.poll_reduce(["angular", "elixir", "elixir", "elixir", "vuejs", "vuejs"])
+# %{"angular" => 1, "elixir" => 3, "vuejs" => 2}
+
 
 
 
