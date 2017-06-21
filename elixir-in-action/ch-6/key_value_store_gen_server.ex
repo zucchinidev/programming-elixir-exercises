@@ -1,8 +1,8 @@
-require ServerProcess
 defmodule KeyValueStoreGenServer do
   use GenServer
 
   def init(_) do
+    :timer.send_interval(5000, :cleanup)
     {:ok, Map.new}
   end
 
@@ -13,6 +13,12 @@ defmodule KeyValueStoreGenServer do
   def handle_call({:get, key}, _, state) do
     {:reply, Map.get(state, key), state}
   end
+
+  def handle_info(:cleanup, state) do
+    IO.puts "performing cleanup..."
+    {:noreply, state}
+  end
+  def handle_info(_, state), do: {:noreply, state}
 
   def start do
     GenServer.start(KeyValueStoreGenServer, nil)
