@@ -22,6 +22,16 @@ defmodule Ch3 do
         y == 10 -> IO.puts "**********************"
         true ->
       end
-    end )
+    end)
+  end
+
+  def multiplication_map do
+    for x <- 1..9, y <- 1..9, into: %{} do
+      {{x, y}, x * y}
+    end
+  end
+
+  def use_multiplication_map(x, y) do
+    multiplication_map()[{x, y}]
   end
 end
